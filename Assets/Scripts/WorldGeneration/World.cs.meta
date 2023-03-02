@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 853bf1e78088021428fb887e5e32eb9d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chunkPrefab: {fileID: 4135361694239722355, guid: 296518ead9522f149847a6b4903eda4e, type: 3}
+  - mainCamera: {instanceID: 0}
+  - fpc: {instanceID: 0}
+  - loadingBar: {instanceID: 0}
+  - surface: {instanceID: 0}
+  - stone: {instanceID: 0}
+  - diamondTop: {instanceID: 0}
+  - diamondBottom: {instanceID: 0}
+  - bedrock: {instanceID: 0}
+  - caves: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
