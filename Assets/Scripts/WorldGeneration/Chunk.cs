@@ -117,15 +117,16 @@ public class Chunk : MonoBehaviour
 {
     public Material atlas;
     public Material transparentAtlas;
-    public int width = 2;
-    public int height = 2;
-    public int depth = 0;
+    public int width;
+    public int height;
+    public int depth;
     public int3 location;
     public Block[,,] blocks;
     public List<Mesh> meshes;
     public MeshUtils.VoxelTypesEnum[] chunkData;
     public MeshRenderer meshRenderer;
     private MeshFilter meshFilter;
+    private MeshCollider meshCollider;
 
     void BuildChunk()
     {
@@ -174,22 +175,43 @@ public class Chunk : MonoBehaviour
         height = (int)dimensions.y;
         depth = (int)dimensions.z;
 
-        int blocksCount = depth * height * width;
+        SetupMeshComponents();
 
-        meshFilter = this.gameObject.AddComponent<MeshFilter>();
-        meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
-        meshRenderer.enabled = false;
-        meshRenderer.material = atlas;
-
-        blocks = new Block[width, height, depth];
-        meshes = new List<Mesh>();
+        SetupBlocksAndMeshes();
 
         BuildChunk();
 
         CreateBlocksAndMeshes();
-
         CreateChunkMesh();
 
+        yield return null;
+    }
+
+    private void SetupBlocksAndMeshes()
+    {
+        blocks = new Block[width, height, depth];
+        meshes = new List<Mesh>();
+    }
+
+    private void SetupMeshComponents(bool meshRendererEnabled = false)
+    {
+        if (meshFilter != null) DestroyImmediate(meshFilter);
+        meshFilter = this.gameObject.AddComponent<MeshFilter>();
+
+        if (meshRenderer != null) DestroyImmediate(meshRenderer);
+        meshRenderer = this.gameObject.AddComponent<MeshRenderer>();
+        meshRenderer.enabled = meshRendererEnabled;
+        meshRenderer.material = atlas;
+
+        if (meshCollider != null) DestroyImmediate(meshCollider);
+    }
+
+    public IEnumerator RecreateChunk()
+    {
+        SetupMeshComponents(true);
+        SetupBlocksAndMeshes();
+        CreateBlocksAndMeshes();
+        CreateChunkMesh();
         yield return null;
     }
 
@@ -353,7 +375,7 @@ public class Chunk : MonoBehaviour
 
         newMesh.RecalculateBounds();
         meshFilter.mesh = newMesh;
-        MeshCollider collider = this.gameObject.AddComponent<MeshCollider>();
-        collider.sharedMesh = meshFilter.mesh;
+        meshCollider = this.gameObject.AddComponent<MeshCollider>();
+        meshCollider.sharedMesh = meshFilter.mesh;
     }
 }

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-using VertexData = System.Tuple<UnityEngine.Vector3, UnityEngine.Vector3, UnityEngine.Vector2>;
 using Unity.Mathematics;
 
 public class MeshUtils
@@ -33,8 +31,7 @@ public class MeshUtils
 
     public enum VoxelTypesEnum
     {
-        GRASS, DIRT, WATER, STONE, SAND, GOLD, OBSIDIAN, REDSTONE, DIAMOND, NOCRACK,
-        CRACK1, CRACK2, CRACK3, CRACK4, AIR
+        GRASS, DIRT, WATER, STONE, SAND, GOLD, OBSIDIAN, REDSTONE, DIAMOND, AIR
     };
     public enum VoxelInteractionTypesEnum
     {
@@ -50,11 +47,6 @@ public class MeshUtils
         /*OBSIDIAN*/  VoxelInteractionTypesEnum.SOLID,
         /*REDSTONE*/  VoxelInteractionTypesEnum.SOLID,
         /*DIAMOND*/   VoxelInteractionTypesEnum.SOLID,
-        /*NOCRACK*/   VoxelInteractionTypesEnum.DECORATIVE,
-        /*CRACK1*/    VoxelInteractionTypesEnum.DECORATIVE,
-        /*CRACK2*/    VoxelInteractionTypesEnum.DECORATIVE,
-        /*CRACK3*/    VoxelInteractionTypesEnum.DECORATIVE,
-        /*CRACK4*/    VoxelInteractionTypesEnum.DECORATIVE,
         /*AIR*/       VoxelInteractionTypesEnum.EMPTY,
     };
 
@@ -68,12 +60,20 @@ public class MeshUtils
         /*OBSIDIAN*/  { VoxelFaceTypesEnum.OBSIDIAN, VoxelFaceTypesEnum.OBSIDIAN, VoxelFaceTypesEnum.OBSIDIAN, VoxelFaceTypesEnum.OBSIDIAN, VoxelFaceTypesEnum.OBSIDIAN, VoxelFaceTypesEnum.OBSIDIAN },
         /*REDSTONE*/  { VoxelFaceTypesEnum.REDSTONE, VoxelFaceTypesEnum.REDSTONE, VoxelFaceTypesEnum.REDSTONE, VoxelFaceTypesEnum.REDSTONE, VoxelFaceTypesEnum.REDSTONE, VoxelFaceTypesEnum.REDSTONE },
         /*DIAMOND*/   { VoxelFaceTypesEnum.DIAMOND, VoxelFaceTypesEnum.DIAMOND, VoxelFaceTypesEnum.DIAMOND, VoxelFaceTypesEnum.DIAMOND, VoxelFaceTypesEnum.DIAMOND, VoxelFaceTypesEnum.DIAMOND },
-        /*NOCRACK*/   { VoxelFaceTypesEnum.NOCRACK, VoxelFaceTypesEnum.NOCRACK, VoxelFaceTypesEnum.NOCRACK, VoxelFaceTypesEnum.NOCRACK, VoxelFaceTypesEnum.NOCRACK, VoxelFaceTypesEnum.NOCRACK },
-        /*CRACK1*/    { VoxelFaceTypesEnum.CRACK1, VoxelFaceTypesEnum.CRACK1, VoxelFaceTypesEnum.CRACK1, VoxelFaceTypesEnum.CRACK1, VoxelFaceTypesEnum.CRACK1, VoxelFaceTypesEnum.CRACK1 },
-        /*CRACK2*/    { VoxelFaceTypesEnum.CRACK2, VoxelFaceTypesEnum.CRACK2, VoxelFaceTypesEnum.CRACK2, VoxelFaceTypesEnum.CRACK2, VoxelFaceTypesEnum.CRACK2, VoxelFaceTypesEnum.CRACK2 },
-        /*CRACK3*/    { VoxelFaceTypesEnum.CRACK3, VoxelFaceTypesEnum.CRACK3, VoxelFaceTypesEnum.CRACK3, VoxelFaceTypesEnum.CRACK3, VoxelFaceTypesEnum.CRACK3, VoxelFaceTypesEnum.CRACK3 },
-        /*CRACK4*/    { VoxelFaceTypesEnum.CRACK4, VoxelFaceTypesEnum.CRACK4, VoxelFaceTypesEnum.CRACK4, VoxelFaceTypesEnum.CRACK4, VoxelFaceTypesEnum.CRACK4, VoxelFaceTypesEnum.CRACK4 },
         /*AIR*/       { VoxelFaceTypesEnum.AIR, VoxelFaceTypesEnum.AIR, VoxelFaceTypesEnum.AIR, VoxelFaceTypesEnum.AIR, VoxelFaceTypesEnum.AIR, VoxelFaceTypesEnum.AIR }
+    };
+
+    public static int[] voxelTypesHealth = {
+        /*GRASS*/     1,
+        /*DIRT*/      1,
+        /*WATER*/     1,
+        /*STONE*/     2,
+        /*SAND*/      1,
+        /*GOLD*/      3,
+        /*OBSIDIAN*/  8,
+        /*REDSTONE*/  3,
+        /*DIAMOND*/   4,
+        /*AIR*/       -1
     };
 
     public static float fBM(float x, float z, float scale, float heightScale, float heightOffset, int octaves)
